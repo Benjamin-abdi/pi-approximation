@@ -18,5 +18,11 @@ n_sides = int(input("How many sides does your polygon have? "))
 
 area_in, area_out = polygon_areas(n_sides)
 
-print(f"Inscribed polygon with {n_sides} sides: {area_in:.6f}")
-print(f"Circumscribed polygon with {n_sides} sides: {area_out:.6f}")
+
+diff_in = math.pi - area_in
+diff_out = area_out - math.pi
+
+print(f"Inscribed polygon with {n_sides} sides: {area_in:.6f}, which is {diff_in:.6e} less than pi")
+print(f"Circumscribed polygon with {n_sides} sides: {area_out:.6f}, which is {diff_out:.6e} more than pi")
+
+input("\nPress Enter to exit...")
