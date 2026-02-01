@@ -19,20 +19,41 @@ def get_valid_number_of_sides():
         except ValueError:
             print("Error: please enter a valid integer number.\n")
 
+def get_precision():
+    while True:
+        try:
+            p = int(input("How many decimal places do you want to display? "))
+            if p < 0:
+                print("Error: precision must be a non-negative integer.\n")
+                continue
+            return p
+        except ValueError:
+            print("Error: please enter a valid integer number.\n")
+
 def polygon_areas(n):
     area_inscribed = (n / 2) * 1 * math.sin(2 * math.pi / n)
     area_circumscribed = n * 1 * math.tan(math.pi / n)
     
     return area_inscribed, area_circumscribed  #tuple
 
+def run_program():
+    n_sides = get_valid_number_of_sides()
+    precision = get_precision()
 
-n_sides = get_valid_number_of_sides()
-area_in, area_out = polygon_areas(n_sides)
+    area_in, area_out = polygon_areas(n_sides)
 
-diff_in = math.pi - area_in
-diff_out = area_out - math.pi
+    diff_in = math.pi - area_in
+    diff_out = area_out - math.pi
 
-print(f"Inscribed polygon with {n_sides} sides: {area_in:.6f}, which is {diff_in:.6e} less than pi")
-print(f"Circumscribed polygon with {n_sides} sides: {area_out:.6f}, which is {diff_out:.6e} more than pi")
+    print()
+    print(f"Inscribed polygon with {n_sides} sides: {area_in:.{precision}f}, which is {diff_in:.{precision}e} less than pi")
+    print(f"Circumscribed polygon with {n_sides} sides: {area_out:.{precision}f}, which is {diff_out:.{precision}e} more than pi")
 
-input("\nPress Enter to exit...")
+YES_ANSWERS = {"y", "yes"}
+
+while True:
+    run_program()
+    print()
+    choice = input("Do you want to run the program again? (y/n): " ).strip().lower()
+    if choice not in YES_ANSWERS:
+        break
